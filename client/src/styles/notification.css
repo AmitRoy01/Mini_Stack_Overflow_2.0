@@ -1,0 +1,37 @@
+/* notification.css */
+
+.notification-container {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: #f2f4d0; /* White background */
+  border-radius: 0.5rem; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(46, 46, 46, 0.1); /* Shadow effect */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s;
+}
+
+.notification-container:hover {
+  background-color: #f3f4f6; /* Gray-100 on hover */
+}
+
+.notification-button {
+  background-color: #402ad1; /* Tailwind's blue-500 */
+  color: #ffffff; /* White text */
+  padding: 0.5rem 1rem; /* Padding */
+  border-radius: 0.25rem; /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.notification-button:hover {
+  background-color: #6693f4; /* Tailwind's blue-600 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
+}
+
+.notification-email,
+.notification-created-at {
+  margin-right: 1rem; /* Space between elements */
+  color: rgb(157, 135, 157); /* Gray text */
+}

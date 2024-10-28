@@ -1,0 +1,95 @@
+/* PostList Styles */
+
+body {
+    font-family: 'Arial', sans-serif; /* You can change this to any preferred font */
+    background-color: #f3f4f6; /* Light gray background for contrast */
+    margin: 0;
+    padding: 20px;
+  }
+  
+  h2 {
+    color: #2c3e50; /* Dark navy color for headings */
+    margin-bottom: 10px;
+  }
+  
+  h3 {
+    color: #2980b9; /* Bright blue for post titles */
+    margin: 0 0 10px; /* Space below the title */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow */
+  }
+  
+  button {
+    background-color: #3498db; /* Bright blue button */
+    color: white; /* White text on buttons */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Padding for buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+  }
+  
+  button:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+  }
+  
+  input[type="text"],
+  textarea,
+  input[type="file"] {
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px; /* Space inside the input */
+    width: 100%; /* Full width */
+    margin-bottom: 10px; /* Space below the input */
+    transition: border-color 0.3s ease; /* Smooth transition for focus effect */
+  }
+  
+  input[type="text"]:focus,
+  textarea:focus {
+    border-color: #3498db; /* Blue border on focus */
+    outline: none; /* Remove default outline */
+  }
+  
+  textarea {
+    min-height: 100px; /* Minimum height for textarea */
+    resize: vertical; /* Allow vertical resizing */
+  }
+  
+  .post-card {
+    background-color: #ffffff; /* White background for posts */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    padding: 20px; /* Inner padding for post */
+    margin-bottom: 20px; /* Space below each post */
+    transition: transform 0.2s, box-shadow 0.2s; /* Smooth transitions */
+  }
+  
+  .post-card:hover {
+    transform: scale(1.02); /* Slightly enlarge on hover */
+    box-shadow: 0 6px 30px rgba(51, 40, 40, 0.15); /* Enhanced shadow on hover */
+  }
+  
+  .text-gray-600 {
+    color: #7f8c8d; /* Gray color for secondary text */
+  }
+  
+  .text-blue-500 {
+    color: #3498db; /* Consistent bright blue for links */
+    text-decoration: underline; /* Underline for links */
+  }
+  
+  .text-blue-500:hover {
+    color: #2980b9; /* Darker blue on link hover */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    body {
+      padding: 10px; /* Reduced padding on smaller screens */
+    }
+  
+    .post-card {
+      padding: 15px; /* Adjust padding for smaller screens */
+    }
+  }
+  

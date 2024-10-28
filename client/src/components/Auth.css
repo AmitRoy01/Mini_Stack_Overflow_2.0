@@ -1,0 +1,84 @@
+.auth-container {
+    background-image: url('E:/stackOverflow test/Project Present v-1/Stack Overflow 2.0/client/public/bg.jpg'); /* Use a relative path */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgb(246, 252, 205);
+    position: relative; /* For layering */
+    overflow: hidden; /* Prevent overflow of child elements */
+}
+
+/* Optional: Add a gradient overlay */
+.auth-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay for contrast */
+    z-index: 1; /* Ensure it sits behind the text but above the image */
+}
+
+.welcome-text {
+    font-size: 4rem; /* Increase font size for better visibility */
+    text-align: center;
+    animation: fadeIn 2s ease-in; /* Fade-in animation */
+    transition: transform 0.3s ease, color 0.3s ease; /* Smooth transformation */
+    z-index: 2; /* Ensure text is above overlay */
+}
+
+/* New styles for the form container */
+.form-container {
+    width: 100%;
+    max-width: 450px; /* Slightly larger for a more spacious layout */
+    padding: 2rem;
+    border-radius: 12px; /* More rounded corners */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* Deeper shadow */
+    background: rgba(255, 255, 255, 0.1); /* Light background with transparency */
+    backdrop-filter: blur(10px); /* Blur effect for a glassy look */
+    position: relative; /* Positioning context */
+    z-index: 2; /* Ensure form is above the overlay */
+}
+
+.sign-up {
+    background-color: rgba(0, 123, 255, 0.8); /* Semi-transparent blue */
+    border: 2px solid rgba(0, 123, 255, 1); /* Solid border for contrast */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.sign-up:hover {
+    background-color: rgba(4, 91, 185, 0.8); /* Slightly darker blue on hover */
+}
+
+.sign-in {
+    background-color: rgba(40, 167, 69, 0.8); /* Semi-transparent green */
+    border: 2px solid rgba(40, 167, 69, 1); /* Solid border for contrast */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.sign-in:hover {
+    background-color: rgba(14, 151, 36, 0.8); /* Slightly darker green on hover */
+}
+
+/* Animation for fade-in effect */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px); /* Slide in from above */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hover effect for welcome text */
+.welcome-text:hover {
+    transform: scale(1.1); /* Scale up on hover */
+    color: #d7b21e; /* Change text color on hover */
+}
