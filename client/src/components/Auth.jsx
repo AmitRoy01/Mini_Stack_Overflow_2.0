@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './Auth.css'; // Import custom styles
 
@@ -6,6 +6,12 @@ function Auth({ setToken }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(true); // State to toggle between Sign Up and Sign In
+
+  // Reset fields when switching between Sign Up and Sign In
+  useEffect(() => {
+    setEmail('');
+    setPassword('');
+  }, [isSignUp]);
 
   const handleSignUp = async () => {
     const res = await fetch(`http://localhost:8000/signup`, {

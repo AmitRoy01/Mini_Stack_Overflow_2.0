@@ -12,6 +12,11 @@ function PostList({ token }) {
   const [showingUserPosts, setShowingUserPosts] = useState(false); // State to toggle view
   const [showCreateForm, setShowCreateForm] = useState(false); // State to toggle post creation form
   const [uploadOption, setUploadOption] = useState(''); // State to determine which input to show
+ 
+  const [codeContent, setCodeContent] = useState(''); // State to hold the fetched code content
+  const [error, setError] = useState(''); // State to hold error messages
+  const [visibleCodeSnippetId, setVisibleCodeSnippetId] = useState(null); // State to track visible code snippet
+
 
   useEffect(() => {
     fetchPosts(); // Initially fetch posts by others
@@ -106,37 +111,68 @@ function PostList({ token }) {
     .slice() // Create a shallow copy of posts to avoid mutating the original array
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // Sort by creation date (most recent first)
 
+
+    
+/// onk kahini ekhane
+
+// Handle view/hide code snippet
+const handleToggleCodeSnippet = async (postId, post) => {
+  if (visibleCodeSnippetId === postId) {
+    // If the code snippet is already visible, hide it
+    setVisibleCodeSnippetId(null);
+    setCodeContent(''); // Clear the code content
+  } else {
+    // If the code snippet is not visible, fetch and show it
+    const objectName = post.codeSnippetUrl.split('/').pop();
+    try {
+      const res = await fetch(`http://localhost:8000/post/code/${objectName}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      
+      if (!res.ok) {
+        throw new Error('Failed to fetch the code snippet');
+      }
+
+      const code = await res.text();
+      setCodeContent(code); // Set the code content state
+      setError(''); // Clear any previous errors
+      setVisibleCodeSnippetId(postId); // Show this post's code snippet
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+};
+
   return (
     <div>
       <div className="flex justify-between m-4">
-        <h2 className="text-xl font-bold mb-4">
-          {showingUserPosts ? "My Posts" : "Posts by Others"}
-        </h2>
+        {/* <h2 className="text-xl font-bold mb-4">
+         {showingUserPosts ? "My Posts" : "Posts of Others"}
+        </h2> */}
         <div>
-          <button
-            onClick={fetchUserPosts}
-            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-4"
-          >
-            View My Posts
-          </button>
-          <button
-            onClick={fetchPosts}
-            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-4 ml-2"
-          >
-            View Posts by Others
-          
-          </button>
-          
+       <button
+              onClick={fetchUserPosts}
+              className="btn"
+            >
+              View My Posts
+            </button>
+
+            <button
+              onClick={fetchPosts}
+              className="btn"
+            >
+              View Posts of Others
+            </button>     
         </div>
       </div>
 
         
       {/* "Create Post" Button to Toggle Form */}
       <div className="mb-4">
-        <button
+      <button
           onClick={() => setShowCreateForm(!showCreateForm)} // Toggle the form visibility
-          className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
-        >
+          className="bg-green-500 border-2 border-transparent hover:bg-gray-400 hover:border-gray-600 text-white py-2 px-4 rounded transition duration-200"
+          >
           {showCreateForm ? "Cancel" : "Create Post"}
         </button>
       </div>
@@ -144,17 +180,21 @@ function PostList({ token }) {
       {/* Show the form only if "Create Post" button is clicked */}
       {showCreateForm && (
         <div>
+          <p><b>Title      </b>
+              --( Be specific and imagine you’re asking a question to another person ) </p>
           <input
             type="text"
             value={title}
             onChange={e => setTitle(e.target.value)}
-            placeholder="Title (required)"
+            placeholder="Ask your questions (required)"
             className="block w-full p-2 mb-2 border rounded"
           />
+          <p><b>Description  </b></p>
+
           <textarea
             value={content}
             onChange={e => setContent(e.target.value)}
-            placeholder="Content"
+            placeholder="Description about your question ( optional)"
             className="block w-full p-2 mb-2 border rounded"
           />
 
@@ -165,7 +205,7 @@ function PostList({ token }) {
                 setUploadOption('codeSnippet');
                 setFile(null); // Reset file if switching to code snippet
               }}
-              className={`mr-2 py-2 px-4 rounded ${uploadOption === 'codeSnippet' ? 'bg-blue-600' : 'bg-gray-300'}`}
+              className={`button mr-2 ${uploadOption === 'codeSnippet' ? 'bg-blue-600' : 'bg-gray-300'}`}
             >
               Paste Code Snippet
             </button>
@@ -174,10 +214,12 @@ function PostList({ token }) {
                 setUploadOption('uploadFile');
                 setCodeSnippet(''); // Reset code snippet if switching to upload
               }}
-              className={`py-2 px-4 rounded ${uploadOption === 'uploadFile' ? 'bg-blue-600' : 'bg-gray-300'}`}
+              className={`button-upload ${uploadOption === 'uploadFile' ? 'bg-blue-600' : 'bg-gray-300'}`}
             >
               Upload File
             </button>
+
+
           </div>
 
           {/* Conditional Inputs Based on Selection */}
@@ -244,7 +286,8 @@ function PostList({ token }) {
             <div key={post._id} className="post-card"> {/* Use the new class for styling */}
               <h3 className="text-lg font-bold">{post.title}</h3>
               <p>{post.content}</p>
-              {post.codeSnippetUrl && (
+
+              {/* {post.codeSnippetUrl && (
                 <a
                   href={post.codeSnippetUrl}
                   className="text-blue-500"
@@ -253,7 +296,31 @@ function PostList({ token }) {
                 >
                   View Code Snippet
                 </a>
-              )}
+              )} */}
+
+          {/* Button to view/hide code snippet */}
+          {post.codeSnippetUrl && (
+          <button
+          onClick={() => handleToggleCodeSnippet(post._id, post)} // Pass post ID and post to the handler
+          className="text-blue-500 bg-transparent hover:bg-blue-200 hover:text-blue-700 transition duration-200 ease-in-out py-1 px-2 rounded shadow hover:shadow-lg">
+          {visibleCodeSnippetId === post._id ? "Hide Code Snippet" : "View Code Snippet"}
+        </button>
+          )}
+
+          {/* Display the fetched code content if visible */}
+          {visibleCodeSnippetId === post._id && codeContent && (
+            <pre className="mt-4 p-2 bg-gray-200 border rounded">
+              {codeContent}
+            </pre>
+          )}
+
+          {/* Display error message if any */}
+          {error && (
+            <div className="text-red-500 mt-2">
+              {error}
+            </div>
+          )}
+
               {post.email && (
                 <p className="text-green-600">Posted by {post.email || 'Unknown'}</p>
               )}

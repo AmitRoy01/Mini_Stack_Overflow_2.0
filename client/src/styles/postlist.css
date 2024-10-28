@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Arial', sans-serif; /* You can change this to any preferred font */
-    background-color: #f3f4f6; /* Light gray background for contrast */
+    background-color: #7a8cb0; /* Light gray background for contrast */
     margin: 0;
     padding: 20px;
   }
@@ -13,7 +13,7 @@ body {
   }
   
   h3 {
-    color: #2980b9; /* Bright blue for post titles */
+    color: #12567e; /* Bright blue for post titles */
     margin: 0 0 10px; /* Space below the title */
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow */
   }
@@ -46,9 +46,11 @@ body {
   
   input[type="text"]:focus,
   textarea:focus {
-    border-color: #3498db; /* Blue border on focus */
+    border-color: #34db60; /* Blue border on focus */
     outline: none; /* Remove default outline */
+    border-width: 1.5px; /* Increase border width */
   }
+  
   
   textarea {
     min-height: 100px; /* Minimum height for textarea */
@@ -66,11 +68,11 @@ body {
   
   .post-card:hover {
     transform: scale(1.02); /* Slightly enlarge on hover */
-    box-shadow: 0 6px 30px rgba(51, 40, 40, 0.15); /* Enhanced shadow on hover */
+    box-shadow: 0 6px 30px rgba(245, 158, 17, 0.15); /* Enhanced shadow on hover */
   }
   
   .text-gray-600 {
-    color: #7f8c8d; /* Gray color for secondary text */
+    color: #0a2424; /* Gray color for secondary text */
   }
   
   .text-blue-500 {
@@ -79,7 +81,7 @@ body {
   }
   
   .text-blue-500:hover {
-    color: #2980b9; /* Darker blue on link hover */
+    color: #485157; /* Darker blue on link hover */
   }
   
   /* Responsive Design */
@@ -92,4 +94,81 @@ body {
       padding: 15px; /* Adjust padding for smaller screens */
     }
   }
-  
+  /* Button Base Styles */
+.btn {
+  background-color: #3b82f6; /* Tailwind blue-500 */
+  color: white;
+  padding: 0.5rem 1rem; /* py-2 px-4 */
+  border-radius: 0.375rem; /* rounded */
+  margin-bottom: 1rem; /* mb-4 */
+  margin-left: 0.5rem; /* ml-2 for the second button */
+  border: 2px solid transparent; /* Initially no border */
+  transition: all 0.2s ease-in-out; /* Smooth transition */
+  cursor: pointer;
+}
+
+/* Hover Effects */
+.btn:hover {
+  background-image: linear-gradient(to right, #616f59, #545e72); /* Gradient hover effect */
+  color: #fff; /* Ensures text remains white */
+  border-color: #563b02; /* Border color on hover */
+}
+
+.btn:hover:not(:disabled) {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
+}
+
+/* Additional Color Change Hover Effect */
+.btn-color:hover {
+  background-color: #1e40af; /* Tailwind blue-700 */
+}
+
+
+.button {
+  padding: 0.15rem 0.5rem; /* Further reduced padding for a smaller size */
+  border: none; /* Remove default border */
+  border-radius: 0.3rem; /* Slightly rounded corners */
+  font-weight: bold; /* Bold text */
+  font-size: 0.75rem; /* Smaller text size */
+  color: white; /* White text */
+  cursor: pointer; /* Pointer on hover */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Reduced shadow effect */
+  background: linear-gradient(135deg, #ff6b6b, #ff3f3f); /* Gradient background */
+}
+
+.button:hover {
+  background: linear-gradient(135deg, #ff4d4d, #890505); /* Different darker gradient on hover */
+  transform: translateY(-1px); /* Slight lift effect */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
+}
+
+.button:active {
+  transform: translateY(0); /* Reset the lift effect when active */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Reset shadow */
+}
+
+/* Styles for the upload button with the same base color but different hover */
+.button-upload {
+  padding: 0.15rem 0.5rem; /* Same reduced padding */
+  border: none; /* Remove default border */
+  border-radius: 0.3rem; /* Slightly rounded corners */
+  font-weight: bold; /* Bold text */
+  font-size: 0.75rem; /* Smaller text size */
+  color: white; /* White text */
+  cursor: pointer; /* Pointer on hover */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Reduced shadow effect */
+  background: linear-gradient(135deg, #ff6b6b, #ff3f3f); /* Same gradient background */
+}
+
+.button-upload:hover {
+  background: linear-gradient(135deg, #ff7f7f, #8d0b0b); /* Different hover color for the upload button */
+  transform: translateY(-1px); /* Slight lift effect */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
+}
+
+.button-upload:active {
+  transform: translateY(0); /* Reset the lift effect when active */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Reset shadow */
+}

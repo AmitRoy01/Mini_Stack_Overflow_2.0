@@ -92,4 +92,18 @@ router.get('/post/:id', authMiddleware, async (req, res) => {
   }
 });
 
+
+// Add this route in postRoute.js
+router.get('/post/code/:objectName', authMiddleware, async (req, res) => {
+  const { objectName } = req.params;
+
+  try {
+    const stream = await minioClient.getObject(BUCKET_NAME, objectName);
+    res.setHeader('Content-Type', 'text/plain'); // Set the content type to plain text
+    stream.pipe(res); // Pipe the stream directly to the response
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to fetch the code snippet' });
+  }
+});
+
 module.exports = router;

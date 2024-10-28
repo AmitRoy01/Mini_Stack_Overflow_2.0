@@ -17,15 +17,15 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
+    <div className="app-container">
       <BrowserRouter>
         {!token ? (
           <Auth setToken={setToken} />
         ) : (
           <div className="container mx-auto">
-            <header className="flex justify-between items-center mb-4">
-              <h1 className="text-2xl font-bold">Welcome to Stack Overflow 2.0</h1>
-              <div className="flex gap-2">
+            <header className="header">
+              <h1 className="header-title">Welcome to Stack Overflow 2.0</h1>
+              <div className="header-actions">
                 <Link to="/notifications" className="notification-icon">
                   <FontAwesomeIcon icon={faBell} />
                 </Link>

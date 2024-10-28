@@ -3,9 +3,11 @@ import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const SinglePost = ({ token }) => {
-  const { postId } = useParams(); // Get postId from the URL
+  const { postId } = useParams();
   const [post, setPost] = useState(null);
-  const [error, setError] = useState(null); // New state to handle potential fetch errors
+  const [error, setError] = useState(null);
+  const [codeContent, setCodeContent] = useState(null); // State for code snippet content
+  const [visibleCodeSnippet, setVisibleCodeSnippet] = useState(false); // State to manage code snippet visibility
 
   useEffect(() => {
     fetchPost();
@@ -28,15 +30,36 @@ const SinglePost = ({ token }) => {
     }
   };
 
+  const handleViewCodeSnippet = async () => {
+    if (post && post.codeSnippetUrl) {
+      const objectName = post.codeSnippetUrl.split('/').pop();
+      try {
+        const res = await fetch(`http://localhost:8000/post/code/${objectName}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (!res.ok) {
+          throw new Error('Failed to fetch the code snippet');
+        }
+
+        const code = await res.text();
+        setCodeContent(code); // Set the code content state
+        setVisibleCodeSnippet(!visibleCodeSnippet); // Toggle visibility state
+      } catch (err) {
+        setError(err.message);
+      }
+    }
+  };
+
   if (error) {
-    return <p className="text-red-500">Error: {error}</p>; // Display error message
+    return <p className="text-red-500">Error: {error}</p>;
   }
 
   if (!post) {
-    return <p>Loading...</p>; // Loading state
+    return <p>Loading...</p>;
   }
 
-  const formattedDate = new Date(post.createdAt).toLocaleString(); // Format post creation date
+  const formattedDate = new Date(post.createdAt).toLocaleString();
 
   return (
     <div className="p-4 bg-white rounded shadow">
@@ -44,14 +67,17 @@ const SinglePost = ({ token }) => {
       <p className="mt-2">{post.content}</p>
 
       {post.codeSnippetUrl && (
-        <a
-          href={post.codeSnippetUrl}
-          className="text-blue-500"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          View Code Snippet
-        </a>
+       <button
+       onClick={handleViewCodeSnippet}
+       className="text-blue-500 bg-transparent hover:bg-blue-200 hover:text-blue-700 transition duration-200 ease-in-out py-1 px-2 rounded shadow hover:shadow-lg" >
+       {visibleCodeSnippet ? "Hide Code Snippet" : "View Code Snippet"}
+     </button>     
+      )}
+
+      {visibleCodeSnippet && codeContent && ( // Render code content if visible
+        <pre className="mt-4 p-2 bg-gray-200 border rounded">
+          {codeContent}
+        </pre>
       )}
 
       {post.email && (
